@@ -33,7 +33,7 @@ report_id: The ID of the Salesforce report you wish to download.
 To use this script, simply run it with Python after configuring your Salesforce credentials and the report ID you wish to download:
 
 ```bash
-python salesforce_report_downloader.py
+python report_downloader.py
 ```
 
 The script will connect to Salesforce, download the specified report, and save it as an Excel file in the same directory where the script is located. The name of the Excel file will be the Salesforce report name with spaces replaced by underscores.
