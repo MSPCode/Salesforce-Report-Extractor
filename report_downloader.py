@@ -4,25 +4,23 @@ import pandas as pd
 # Salesforce login credentials
 username = 'your_username'
 password = 'your_password'
-is_sandbox = True
+is_sandbox = False
 security_token = ''
 domain = 'test' if is_sandbox else None
 
-# Replace 'your_report_id_here' with the actual Report ID
-report_id = '00O8b00001234567890'
+# Replace repord_id with the actual Report ID
+report_id = '00O8b000009ABCDefgJ'
 
-# Initialize Salesforce connection
+# Initialize SF connection
 sf = Salesforce(username=username, password=password, security_token=security_token, domain=domain)
 
 def download_salesforce_report(report_id):
+    
     # Fetch the report metadata
-    report_metadata = sf.restful(f"analytics/reports/{report_id}")
+    report_data = sf.restful(f"analytics/reports/{report_id}")
     
     # Extract report name for the file name
-    report_name = report_metadata['attributes']['reportName'].replace(' ', '_')
-    
-    # Fetch the report data without 'includeDetails' to get metadata for headers
-    report_data = sf.restful(f"analytics/reports/{report_id}")
+    report_name = report_data['attributes']['reportName'].replace(' ', '_')
     
     # Extract column headers from 'detailColumnInfo'
     detail_column_info = report_data['reportExtendedMetadata']['detailColumnInfo']
@@ -55,4 +53,3 @@ def download_salesforce_report(report_id):
     print(f"Report '{report_name}' has been saved to '{excel_file}'.")
 
 download_salesforce_report(report_id)
-
